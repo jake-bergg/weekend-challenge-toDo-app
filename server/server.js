@@ -5,6 +5,22 @@ const todos = require('./routes/todos.router.js');
 
 let PORT = process.env.PORT || 5001;
 
+// ! array to hold todo list
+const toDoList = [
+  {
+    todo: 'finish weekend challenge',
+  },
+  {
+    todo: 'doin ya mom',
+  }
+]
+
+// ! ROUTES
+app.get('/todo', (req, res) => {
+  console.log('in /todo GET')
+  res.send(toDoList)
+})
+
 // Do not modify this!
 if (process.env.NODE_ENV == 'test') {
   PORT = 5002;
