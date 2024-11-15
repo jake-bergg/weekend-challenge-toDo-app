@@ -21,6 +21,12 @@ app.get('/todo', (req, res) => {
   res.send(toDoList)
 })
 
+app.post('/todo', (req, res) => {
+  console.log('in /todo POST')
+  toDoList.push(req.body)
+  res.sendStatus(201)
+})
+
 // Do not modify this!
 if (process.env.NODE_ENV == 'test') {
   PORT = 5002;
