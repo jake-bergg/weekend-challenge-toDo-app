@@ -5,15 +5,10 @@ const todos = require('./routes/todos.router.js');
 
 let PORT = process.env.PORT || 5001;
 
+app.use(express.json())
+
 // ! array to hold todo list
-const toDoList = [
-  {
-    todo: 'finish weekend challenge',
-  },
-  {
-    todo: 'doin ya mom',
-  }
-]
+const toDoList = []
 
 // ! ROUTES
 app.get('/todo', (req, res) => {

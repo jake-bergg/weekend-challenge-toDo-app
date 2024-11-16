@@ -21,6 +21,7 @@ function getList() {
     .then((response) => {
         console.log('got list: ', response.data)
         // ! render function to put list onto DOM
+        renderList(response.data)
     })
     .catch((error) => {
         console.log('ERROR in GET list...', error)
@@ -35,10 +36,12 @@ function addToList(event) {
 
     const listToSend = 
     {
-        todo: document.getElementById("TO-DO").value
+        todo: document.getElementById("TODO").value
     }
 
     console.log('adding list: ', listToSend)
+
+    document.getElementById("TODO").value = ''
 
     axios({
         method: 'POST',
@@ -47,7 +50,7 @@ function addToList(event) {
     })
     .then((response) => {
         console.log('posting data: ', response.data)
-        response.data
+        getList()
     })
     .catch((error) => {
         console.log('ERROR in POST /todo', error)
@@ -62,14 +65,21 @@ function addToList(event) {
 function renderList(list) {
     console.log('renderList() called...')
 
-    const toDo = document.getElementById("toDoList").value
+    const toDo = document.getElementById("toDoList")
 
-    toDo.innerHTML += `
-    <tr>
-        <td><button onclick="deleteArtist(${ artist.id })">DELETE</button> ${artist.name}</td>
-        <td>${artist.birthdate} <button onclick="toggleFavoriteArtist( ${ artist.id }, ${ artist.favorite } )">${ favButton }</button></td>
-      </tr>
-    `
+    toDo.innerHTML = ''
 
+    for (item of list){
+        toDo.innerHTML += `
+        <tr>
+            <td>${item.todo}</td>
+            <td>
+                <button>Complete</button>
+            </td><td>
+                <button>Delete</button>
+            </td>
+        </tr>
+        `
+    }
 }
 
