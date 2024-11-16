@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
   <script src="./scripts/client.js"></script>
   <title>SQL TO-DO List</title>
@@ -15,7 +16,7 @@
   <section id="addToDo">
     <h2>Add TO-DO</h2>
     <input id="TODO" type="text" placeholder="TO-DO">
-    <button onClick="addToList(event)" type="button" id="addButton">Submit</button>
+    <button onClick="addToList(event)" type="submit" id="addButton" data-testid="submitButton">Submit</button>
   </section>
   <section>
     <h2>What Should We Do Today?</h2>

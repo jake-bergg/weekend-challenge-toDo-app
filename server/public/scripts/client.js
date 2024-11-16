@@ -8,6 +8,9 @@ function onReady(){
 
 }
 
+// !!! GOTTA CALL ONREADY IF YOU WANT IT TO LOAD 
+onReady()
+
 
 // ! GET function
 function getList() {
@@ -41,8 +44,6 @@ function addToList(event) {
 
     console.log('adding list: ', listToSend)
 
-    document.getElementById("TODO").value = ''
-
     axios({
         method: 'POST',
         url: '/todo',
@@ -50,11 +51,12 @@ function addToList(event) {
     })
     .then((response) => {
         console.log('posting data: ', response.data)
+        document.getElementById("TODO").value = ''
         getList()
     })
     .catch((error) => {
         console.log('ERROR in POST /todo', error)
-        error.sendStatus(500)
+        alert(error)
     })
 
 }
@@ -67,19 +69,20 @@ function renderList(list) {
 
     const toDo = document.getElementById("toDoList")
 
-    toDo.innerHTML = ''
+    let rows = ''
 
     for (item of list){
-        toDo.innerHTML += `
+        rows += `
         <tr>
-            <td>${item.todo}</td>
+            <td data-testid="toDoItem">${item.todo}</td>
             <td>
-                <button>Complete</button>
+                <button data-testid="completeButton">Complete</button>
             </td><td>
-                <button>Delete</button>
+                <button data-testid="deleteButton">Delete</button>
             </td>
         </tr>
         `
     }
+    toDo.innerHTML = rows
 }
 
