@@ -39,7 +39,8 @@ function addToList(event) {
 
     const listToSend = 
     {
-        todo: document.getElementById("TODO").value
+        text: document.getElementById("TODO").value,
+        isComplete: false
     }
 
     console.log('adding list: ', listToSend)
@@ -74,11 +75,11 @@ function renderList(list) {
     for (item of list){
         rows += `
         <tr>
-            <td data-testid="toDoItem">${item.todo}</td>
+            <td data-testid="toDoItem">${item.text}</td>
             <td>
-                <button data-testid="completeButton">Complete</button>
+                <button data-testid="completeButton">✅</button>
             </td><td>
-                <button data-testid="deleteButton">Delete</button>
+                <button data-testid="deleteButton">❌</button>
             </td>
         </tr>
         `

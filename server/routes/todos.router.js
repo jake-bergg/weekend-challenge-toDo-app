@@ -23,10 +23,10 @@ router.post('/', (req, res) => {
     const newToDo = req.body
 
     const queryText = `
-        INSERT INTO "table"("text", "isComplete") 
-        VALUES ('${newToDo.text}', '${newToDo.isComplete}');
+        INSERT INTO "todos"("text", "isComplete") 
+        VALUES ($1, $2);
     `
-    const values = [req.body.text, req.body.isComplete]
+    const values = [newToDo.text, newToDo.isComplete]
 
     pool.query(queryText, values)
         .then((result) => {
