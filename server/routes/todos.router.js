@@ -26,8 +26,9 @@ router.post('/', (req, res) => {
         INSERT INTO "table"("text", "isComplete") 
         VALUES ('${newToDo.text}', '${newToDo.isComplete}');
     `
+    const values = [req.body.text, req.body.isComplete]
 
-    pool.query(queryText)
+    pool.query(queryText, values)
         .then((result) => {
             res.sendStatus(201)
         })

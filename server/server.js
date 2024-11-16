@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 
-
 const todos = require('./routes/todos.router.js');
 
 let PORT = process.env.PORT || 5001;
@@ -10,6 +9,8 @@ app.use(express.json())
 
 // ! array to hold todo list
 const toDoList = []
+
+app.use('/todo', todos)
 
 // ! ROUTES
 app.get('/todo', (req, res) => {
@@ -29,7 +30,7 @@ if (process.env.NODE_ENV == 'test') {
 }
 
 app.use(express.static('./server/public'));
-app.use(express.json());
+// app.use(express.json());
 
 app.use('/todos', todos);
 
