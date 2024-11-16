@@ -62,6 +62,29 @@ function addToList(event) {
 
 }
 
+// ! DELETE function
+function deleteTodo(todoId){
+    console.log('in deleteTodo()...')
+    const confirmDelete = alert('Are you sure you want to remove this item?')
+    if (confirmDelete){
+        const itemToRemove = {id: todoId}
+
+        axios ({
+            method: 'DELETE',
+            url: '/todo',
+            data: itemToRemove
+        })
+        .then ((response) => {
+            console.log('DELETE request received: ', response. data)
+        })
+        .catch ((error) => {
+            console.log('ERROR in DELETE /todo: ', error)
+            alert(error)
+        })
+    }
+}
+
+
     
 
 // ! RENDER function
@@ -79,7 +102,7 @@ function renderList(list) {
             <td>
                 <button data-testid="completeButton">✅</button>
             </td><td>
-                <button data-testid="deleteButton">❌</button>
+                <button onClick="deleteTodo(${item.id})" data-testid="deleteButton">❌</button>
             </td>
         </tr>
         `
