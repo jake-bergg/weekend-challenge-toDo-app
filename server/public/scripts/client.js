@@ -91,15 +91,15 @@ function updateList(todoId, complete){
     console.log('in updateList(): ', todoId, complete)
     const itemToSend = {
         id: todoId, 
-        isComplete: !complete
+        isComplete: complete
     }
-    // let newCompleteStatus
-    // if(complete){
-    //     itemToSend.isComplete = false
-    // }
-    // else{
-    //     itemToSend.isComplete = true
-    // }
+    let newCompleteStatus
+    if(complete){
+        itemToSend.isComplete = false
+    }
+    else{
+        itemToSend.isComplete = true
+    }
 
     axios({
         method: 'PUT',
