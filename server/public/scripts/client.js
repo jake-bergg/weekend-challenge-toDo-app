@@ -64,9 +64,9 @@ function addToList(event) {
 
 // ! DELETE function
 function deleteTodo(todoId){
-    console.log('in deleteTodo()...')
-    const confirmDelete = alert('Are you sure you want to remove this item?')
-    if (confirmDelete){
+    console.log('in deleteTodo(), ', todoId)
+    // const confirmDelete = alert('Are you sure you want to remove this item?')
+    // if (confirmDelete){
         const itemToRemove = {id: todoId}
 
         axios ({
@@ -76,12 +76,46 @@ function deleteTodo(todoId){
         })
         .then ((response) => {
             console.log('DELETE request received: ', response. data)
+            getList()
         })
         .catch ((error) => {
             console.log('ERROR in DELETE /todo: ', error)
             alert(error)
         })
+    // }
+}
+
+
+// ! PUT function
+function updateList(todoId, complete){
+    console.log('in updateList(): ', todoId, complete)
+    const itemToSend = {
+        id: todoId, 
+        isComplete: complete
     }
+    let newCompleteStatus
+    if(complete){
+        itemToSend.isComplete = false
+    }
+    else{
+        itemToSend.isComplete = true
+    }
+
+    axios({
+        method: 'PUT',
+        url: '/todo',
+        data: itemToSend
+    })
+    .then((response) => {
+        console.log('sending PUT data: ', itemToSend)
+        console.log('PUT request received: ', response.data)
+        getList()
+    })
+    .catch((error) => {
+        console.log('ERROR in PUT /todo: ', error)
+        alert(error)
+    })
+
 }
 
 
@@ -100,7 +134,7 @@ function renderList(list) {
         <tr>
             <td data-testid="toDoItem">${item.text}</td>
             <td>
-                <button data-testid="completeButton">✅</button>
+                <button onClick="updateList(${item.id}, ${item.isComplete})" data-testid="completeButton">✅</button>
             </td><td>
                 <button onClick="deleteTodo(${item.id})" data-testid="deleteButton">❌</button>
             </td>

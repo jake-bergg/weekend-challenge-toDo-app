@@ -39,4 +39,35 @@ router.post('/', (req, res) => {
 });
 
 
+router.delete( '/', ( req, res )=>{
+    // ! assemble query
+    const queryText = `DELETE FROM todos WHERE id=$1;`
+    const values = [ req.body.id ]
+    // ! run pool.query
+    pool.query( queryText, values )
+    .then( ( results )=>{
+        res.sendStatus( 200 ) // * "OK"
+    }).catch( ( err )=>{
+        // ! handle any errors
+        console.log( err )
+        res.sendStatus( 400 )
+    })
+  })
+  
+
+router.put('/', (req, res) => {
+    console.log('item to PUT: ', req.body)
+    const queryText = `UPDATE "todos" SET "isComplete"=$1 WHERE "id"=$2`
+    const values = [req.body.isComplete, req.body.id]
+
+    pool.query( queryText, values ).then( ( results )=>{
+        res.sendStatus( 200 ); // "OK"
+    }).catch( ( err )=>{
+        // handle any errors
+        console.log( err );
+        res.sendStatus( 400 );
+    })
+})
+
+
 module.exports = router;
