@@ -65,7 +65,7 @@ function addToList(event) {
 // ! DELETE function
 function deleteTodo(todoId){
     console.log('in deleteTodo(), ', todoId)
-    // const confirmDelete = alert('Are you sure you want to remove this item?')
+    const confirmDelete = confirm('Are you sure you want to remove this item?')
     // if (confirmDelete){
         const itemToRemove = {id: todoId}
 
@@ -91,15 +91,15 @@ function updateList(todoId, complete){
     console.log('in updateList(): ', todoId, complete)
     const itemToSend = {
         id: todoId, 
-        isComplete: complete
+        isComplete: !complete
     }
-    let newCompleteStatus
-    if(complete){
-        itemToSend.isComplete = false
-    }
-    else{
-        itemToSend.isComplete = true
-    }
+    // let newCompleteStatus
+    // if(complete){
+    //     itemToSend.isComplete = false
+    // }
+    // else{
+    //     itemToSend.isComplete = true
+    // }
 
     axios({
         method: 'PUT',
@@ -131,8 +131,8 @@ function renderList(list) {
 
     for (item of list){
         rows += `
-        <tr>
-            <td data-testid="toDoItem">${item.text}</td>
+        <tr data-testid="toDoItem" class="${item.isComplete ? 'completed' : ''}">
+            <td>${item.text}</td>
             <td>
                 <button onClick="updateList(${item.id}, ${item.isComplete})" data-testid="completeButton">✅</button>
             </td><td>
